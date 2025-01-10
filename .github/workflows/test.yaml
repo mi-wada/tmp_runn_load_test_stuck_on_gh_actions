@@ -11,7 +11,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  test:
+  test_on_ubuntu_latest:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
@@ -24,6 +24,19 @@ jobs:
           curl -sL -o runn.tar.gz "$RUNN_BIN_URL"
           tar -xvf runn.tar.gz
           sudo mv runn /usr/local/bin/
+      - run: |
+          runn run hello_world.yaml --scopes run:exec
+      - run: |
+          runn loadt hello_world.yaml --scopes run:exec
+  test_on_macos_latest:
+    runs-on: macos-latest
+    timeout-minutes: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install runn
+        run: |
+          brew install k1LoW/tap/runn
+          runn --version
       - run: |
           runn run hello_world.yaml --scopes run:exec
       - run: |
