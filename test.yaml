@@ -1,0 +1,4 @@
+desc: Hello, World!
+steps:
+  - exec:
+      command: echo "Hello, World!"

@@ -1,0 +1,30 @@
+name: Test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install runn
+        env:
+          RUNN_VERSION: v0.122.3
+        run: |
+          RUNN_BIN_URL="https://github.com/k1LoW/runn/releases/download/${RUNN_VERSION}/runn_${RUNN_VERSION}_linux_amd64.tar.gz"
+          curl -sL -o runn.tar.gz "$RUNN_BIN_URL"
+          tar -xvf runn.tar.gz
+          sudo mv runn /usr/local/bin/
+      - run: |
+          runn run load_test.yaml --scopes run:exec
+      - run: |
+          runn loadt load_test.yaml --scopes run:exec
