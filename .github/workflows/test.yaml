@@ -25,6 +25,6 @@ jobs:
           tar -xvf runn.tar.gz
           sudo mv runn /usr/local/bin/
       - run: |
-          runn run load_test.yaml --scopes run:exec
+          runn run hello_world.yaml --scopes run:exec
       - run: |
-          runn loadt load_test.yaml --scopes run:exec
+          runn loadt hello_world.yaml --scopes run:exec
