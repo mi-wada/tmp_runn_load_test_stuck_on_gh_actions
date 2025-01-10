@@ -35,7 +35,7 @@ func (m *spinnerModel) View() string {
 }
 
 func main() {
-	p := tea.NewProgram(newSpinnerModel())
+	p := tea.NewProgram(newSpinnerModel(), tea.WithoutRenderer())
 	go func() {
 		_, _ = p.Run()
 	}()
