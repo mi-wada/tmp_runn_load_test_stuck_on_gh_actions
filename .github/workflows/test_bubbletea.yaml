@@ -11,7 +11,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  test_bubbletea:
+  test_bubbletea_fail:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
@@ -20,4 +20,4 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache-dependency-path: 'go.sum'
-      - run: go run cmd/bubbletea/main.go
+      - run: go run cmd/bubbletea_fail/main.go
